@@ -2,6 +2,6 @@
 
 public static class Constants
 {
-    public const string FileName = "7zz";
+    public const string FileName = "7zzs";
     public const string Library = "Soenneker.Libraries.SevenZip.Linux";
 }
