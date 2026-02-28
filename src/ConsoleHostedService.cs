@@ -66,7 +66,7 @@ public sealed class ConsoleHostedService : IHostedService
                     string finishedAssetPath = Path.Combine(extractionDir, Constants.FileName);
 
                     await _runnersManager.PushIfChangesNeeded(finishedAssetPath, Constants.FileName, Constants.Library,
-                        $"https://github.com/soenneker/{Constants.Library}", cancellationToken);
+                        $"https://github.com/soenneker/{Constants.Library}", false, cancellationToken);
 
                     _logger.LogInformation("Complete!");
 
