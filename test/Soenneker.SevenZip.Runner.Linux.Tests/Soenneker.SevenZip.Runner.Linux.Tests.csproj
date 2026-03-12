@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.SevenZip.Runner.Linux.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.SevenZip.Runner.Linux\Soenneker.SevenZip.Runner.Linux.csproj" />
     </ItemGroup>
 
     <ItemGroup>
