@@ -38,7 +38,7 @@ jobs:
         run: dotnet build test/Soenneker.SevenZip.Runner.Linux.Tests/Soenneker.SevenZip.Runner.Linux.Tests.csproj --configuration Release --no-restore --verbosity minimal
 
       - name: Test
-        run: dotnet test test/Soenneker.SevenZip.Runner.Linux.Tests/Soenneker.SevenZip.Runner.Linux.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
+        run: dotnet test --project test/Soenneker.SevenZip.Runner.Linux.Tests/Soenneker.SevenZip.Runner.Linux.Tests.csproj --configuration Release --no-build --no-restore --verbosity minimal
 
       - name: Pack
         run: dotnet pack src/Soenneker.SevenZip.Runner.Linux/Soenneker.SevenZip.Runner.Linux.csproj --configuration Release --no-build --no-restore --output . --verbosity minimal
