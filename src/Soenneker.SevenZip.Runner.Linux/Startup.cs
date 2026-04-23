@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Soenneker.Managers.Runners.Registrars;
 using Soenneker.Compression.Tar.XZ.Registrars;
 
@@ -18,8 +18,8 @@ public static class Startup
     public static IServiceCollection SetupIoC(this IServiceCollection services)
     {
         services.AddHostedService<ConsoleHostedService>()
-                .AddTarXZUtilAsScoped()
-                .AddRunnersManagerAsScoped();
+                .AddTarXZUtilAsSingleton()
+                .AddRunnersManagerAsSingleton();
 
         return services;
     }
