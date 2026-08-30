@@ -53,10 +53,12 @@ public sealed class ConsoleHostedService : IHostedService
             Task.Run(async () =>
             {
                 _logger.LogInformation("Running console hosted service ...");
+                string? downloadDir = null;
+                string? extractionDir = null;
 
                 try
                 {
-                    string downloadDir = await _directoryUtil.CreateTempDirectory(cancellationToken);
+                    downloadDir = await _directoryUtil.CreateTempDirectory(cancellationToken);
 
                     string? asset = await _releasesUtil.DownloadReleaseAssetByNamePattern("ip7z", "7zip", downloadDir, ["x64.tar.xz"], cancellationToken);
 
@@ -67,7 +69,7 @@ public sealed class ConsoleHostedService : IHostedService
 
                     await _fileUtil.Copy(Path.Combine(downloadDir, asset), tarXZPath, cancellationToken: cancellationToken);
 
-                    string extractionDir = await _directoryUtil.CreateTempDirectory(cancellationToken);
+                    extractionDir = await _directoryUtil.CreateTempDirectory(cancellationToken);
 
                     await _tarXzUtil.DecompressAndExtract(tarXZPath, extractionDir, null, false, cancellationToken);
 
@@ -92,6 +94,12 @@ public sealed class ConsoleHostedService : IHostedService
                 }
                 finally
                 {
+                    if (extractionDir is not null)
+                        await DeleteTempDirectory(extractionDir);
+
+                    if (downloadDir is not null)
+                        await DeleteTempDirectory(downloadDir);
+
                     // Stop the application once the work is done
                     _appLifetime.StopApplication();
                 }
@@ -99,6 +107,18 @@ public sealed class ConsoleHostedService : IHostedService
         });
 
         return Task.CompletedTask;
+    }
+
+    private async ValueTask DeleteTempDirectory(string directory)
+    {
+        try
+        {
+            await _directoryUtil.DeleteIfExists(directory, CancellationToken.None);
+        }
+        catch (Exception e)
+        {
+            _logger.LogWarning(e, "Unable to remove temporary directory {Directory}", directory);
+        }
     }
 
     /// <summary>
