@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Soenneker.GitHub.Repositories.Releases.Abstract;
 using Soenneker.Managers.Runners.Abstract;
